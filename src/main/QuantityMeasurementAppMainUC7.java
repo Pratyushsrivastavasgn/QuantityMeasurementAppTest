@@ -1,7 +1,7 @@
 package main;
-public class QuantityMeasurementAppMainUC6 {
-    private static final double EPSILON = 1e-6;
-    public enum LengthUnit {
+public class QuantityMeasurementAppMainUC7 {
+    private static final double EPSILON=1e-6;
+    public enum LengthUnit{
         INCH(1.0),
         FEET(12.0),
         YARDS(36.0),
@@ -14,7 +14,7 @@ public class QuantityMeasurementAppMainUC6 {
             return factor;
         }
     }
-    public static class QuantityLength {
+    public static class QuantityLength{
         private final double value;
         private final LengthUnit unit;
         public QuantityLength(
@@ -29,7 +29,7 @@ public class QuantityMeasurementAppMainUC6 {
                 LengthUnit unit){
             if(unit==null)
                 throw new IllegalArgumentException(
-                        "Unit cannot be null"
+                        "Invalid unit"
                 );
             if(!Double.isFinite(value))
                 throw new IllegalArgumentException(
@@ -37,7 +37,7 @@ public class QuantityMeasurementAppMainUC6 {
                 );
         }
         private double toBaseUnit(){
-            return value * unit.getFactor();
+            return value*unit.getFactor();
         }
         public double getValue(){
             return value;
@@ -51,8 +51,8 @@ public class QuantityMeasurementAppMainUC6 {
                 LengthUnit to){
             validate(value,from);
             validate(value,to);
-            return value *
-                    from.getFactor() /
+            return value*
+                    from.getFactor()/
                     to.getFactor();
         }
         public QuantityLength convertTo(
@@ -68,37 +68,46 @@ public class QuantityMeasurementAppMainUC6 {
         }
         public QuantityLength add(
                 QuantityLength other){
-            if(other==null)
-                throw new IllegalArgumentException(
-                        "Null operand"
-                );
-            double totalBase=
-                    this.toBaseUnit()
-                            +other.toBaseUnit();
-            double result=
-                    totalBase /
-                            this.unit.getFactor();
-            return new QuantityLength(
-                    result,
+
+            return add(
+                    this,
+                    other,
                     this.unit
             );
         }
         public static QuantityLength add(
                 QuantityLength a,
-                QuantityLength b){
-            return a.add(b);
+                QuantityLength b,
+                LengthUnit targetUnit){
+            if(a==null || b==null)
+                throw new IllegalArgumentException(
+                        "Null operand"
+                );
+            if(targetUnit==null)
+                throw new IllegalArgumentException(
+                        "Null target unit"
+                );
+            double totalBase=
+                    a.toBaseUnit()
+                            +b.toBaseUnit();
+            double result=
+                    totalBase/
+                            targetUnit.getFactor();
+            return new QuantityLength(
+                    result,
+                    targetUnit
+            );
         }
         public static QuantityLength add(
                 double v1,
                 LengthUnit u1,
                 double v2,
-                LengthUnit u2){
-            return new QuantityLength(
-                    v1,u1
-            ).add(
-                    new QuantityLength(
-                            v2,u2
-                    )
+                LengthUnit u2,
+                LengthUnit target){
+            return add(
+                    new QuantityLength(v1,u1),
+                    new QuantityLength(v2,u2),
+                    target
             );
         }
         @Override
@@ -122,38 +131,34 @@ public class QuantityMeasurementAppMainUC6 {
                     +unit+")";
         }
     }
-
     public static void main(String[] args){
-
         var a=
                 new QuantityLength(
                         1,
-                        LengthUnit.FEET);
-
+                        LengthUnit.FEET
+                );
         var b=
                 new QuantityLength(
                         12,
-                        LengthUnit.INCH);
-
+                        LengthUnit.INCH
+                );
         System.out.println(
-                a.add(b)
-        ); //2 feet
-
-
-        var y=
-                new QuantityLength(
-                        1,
-                        LengthUnit.YARDS);
-
-        var f=
-                new QuantityLength(
-                        3,
-                        LengthUnit.FEET);
-
+                QuantityLength.add(
+                        a,b,
+                        LengthUnit.FEET
+                )
+        );
         System.out.println(
-                y.add(f)
-        ); //2 yards
-
+                QuantityLength.add(
+                        a,b,
+                        LengthUnit.INCH
+                )
+        );
+        System.out.println(
+                QuantityLength.add(
+                        a,b,
+                        LengthUnit.YARDS
+                )
+        );
     }
-
 }
