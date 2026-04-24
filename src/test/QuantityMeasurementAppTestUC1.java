@@ -1,7 +1,11 @@
 package test;
+
 import main.QuantityMeasurementAppMainUC1;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class QuantityMeasurementAppTestUC1 {
     @Test
     void testEquality_SameValue() {
