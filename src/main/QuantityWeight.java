@@ -1,24 +1,24 @@
 package main;
 
-public class QuantityVolume {
+public class QuantityWeight {
     private final double value;
-    private final VolumeUnit unit;
+    private final WeightUnit unit;
 
-    public QuantityVolume(double value, VolumeUnit unit) {
+    public QuantityWeight(double value, WeightUnit unit) {
         this.value = value;
         this.unit = unit;
     }
 
     private double toBase() {
-        return unit.toBase(value); // convert to liters
+        return unit.toBase(value); // convert to kg
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof QuantityVolume)) return false;
+        if (!(obj instanceof QuantityWeight)) return false;
 
-        QuantityVolume other = (QuantityVolume) obj;
+        QuantityWeight other = (QuantityWeight) obj;
         return Double.compare(this.toBase(), other.toBase()) == 0;
     }
 }
