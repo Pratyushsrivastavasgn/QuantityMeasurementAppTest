@@ -5,13 +5,13 @@ public enum WeightUnit {
     GRAM(0.001),
     TONNE(1000.0);
 
-    private final double conversionFactor;
+    private final double factor;
 
-    WeightUnit(double conversionFactor) {
-        this.conversionFactor = conversionFactor;
+    WeightUnit(double factor) {
+        this.factor = factor;
     }
 
     public double toBase(double value) {
-        return value * conversionFactor; // base = kg
+        return value * factor; // base = kg
     }
 }
