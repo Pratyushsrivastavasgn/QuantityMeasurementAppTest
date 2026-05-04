@@ -1,38 +1,38 @@
 package test;
 
-import main.QuantityWeight;
-import main.WeightUnit;
+import main.*;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-public class QuantityMeasurementTestUC10 {
+public class QuantityMeasurementTestUC11 {
 
     @Test
-    void testEquality_KgToKg_SameValue() {
+    void testAdd_Length() {
+        var a = new QuantityLength(1, LengthUnit.FEET);   // 12 inch
+        var b = new QuantityLength(2, LengthUnit.INCH);   // 2 inch
+
+        var result = a.add(b);
+
+        assertEquals(new QuantityLength(14, LengthUnit.INCH), result);
+    }
+
+    @Test
+    void testAdd_Volume() {
+        var a = new QuantityVolume(1, VolumeUnit.LITER);
+        var b = new QuantityVolume(1000, VolumeUnit.MILLILITER);
+
+        var result = a.add(b);
+
+        assertEquals(new QuantityVolume(2, VolumeUnit.LITER), result);
+    }
+
+    @Test
+    void testAdd_Weight() {
         var a = new QuantityWeight(1, WeightUnit.KILOGRAM);
-        var b = new QuantityWeight(1, WeightUnit.KILOGRAM);
-        assertEquals(a, b);
-    }
+        var b = new QuantityWeight(500, WeightUnit.GRAM);
 
-    @Test
-    void testEquality_GramToKg_EquivalentValue() {
-        var a = new QuantityWeight(1000, WeightUnit.GRAM);
-        var b = new QuantityWeight(1, WeightUnit.KILOGRAM);
-        assertEquals(a, b);
-    }
+        var result = a.add(b);
 
-    @Test
-    void testEquality_TonneToKg_EquivalentValue() {
-        var a = new QuantityWeight(1, WeightUnit.TONNE);
-        var b = new QuantityWeight(1000, WeightUnit.KILOGRAM);
-        assertEquals(a, b);
-    }
-
-    @Test
-    void testInequality_DifferentValues() {
-        var a = new QuantityWeight(1, WeightUnit.KILOGRAM);
-        var b = new QuantityWeight(2, WeightUnit.KILOGRAM);
-        assertNotEquals(a, b);
+        assertEquals(new QuantityWeight(1.5, WeightUnit.KILOGRAM), result);
     }
 }

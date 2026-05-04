@@ -10,7 +10,12 @@ public class QuantityWeight {
     }
 
     private double toBase() {
-        return unit.toBase(value); // convert to kg
+        return unit.toBase(value);
+    }
+
+    public QuantityWeight add(QuantityWeight other) {
+        double result = this.toBase() + other.toBase();
+        return new QuantityWeight(result, WeightUnit.KILOGRAM);
     }
 
     @Override
