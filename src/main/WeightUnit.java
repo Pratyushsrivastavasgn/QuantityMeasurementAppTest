@@ -12,6 +12,6 @@ public enum WeightUnit {
     }
 
     public double toBase(double value) {
-        return value * factor; // base = kg
+        return value * factor;
     }
 }
