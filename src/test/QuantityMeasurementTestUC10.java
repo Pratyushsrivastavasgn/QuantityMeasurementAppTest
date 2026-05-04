@@ -1,38 +1,38 @@
 package test;
 
-import main.QuantityVolume;
-import main.VolumeUnit;
+import main.QuantityWeight;
+import main.WeightUnit;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class QuantityMeasurementTestUC9 {
+public class QuantityMeasurementTestUC10 {
 
     @Test
-    void testEquality_LiterToLiter_SameValue() {
-        var a = new QuantityVolume(1, VolumeUnit.LITER);
-        var b = new QuantityVolume(1, VolumeUnit.LITER);
+    void testEquality_KgToKg_SameValue() {
+        var a = new QuantityWeight(1, WeightUnit.KILOGRAM);
+        var b = new QuantityWeight(1, WeightUnit.KILOGRAM);
         assertEquals(a, b);
     }
 
     @Test
-    void testEquality_GallonToLiter_EquivalentValue() {
-        var a = new QuantityVolume(1, VolumeUnit.GALLON);
-        var b = new QuantityVolume(3.78, VolumeUnit.LITER);
+    void testEquality_GramToKg_EquivalentValue() {
+        var a = new QuantityWeight(1000, WeightUnit.GRAM);
+        var b = new QuantityWeight(1, WeightUnit.KILOGRAM);
         assertEquals(a, b);
     }
 
     @Test
-    void testEquality_MilliliterToLiter_EquivalentValue() {
-        var a = new QuantityVolume(1000, VolumeUnit.MILLILITER);
-        var b = new QuantityVolume(1, VolumeUnit.LITER);
+    void testEquality_TonneToKg_EquivalentValue() {
+        var a = new QuantityWeight(1, WeightUnit.TONNE);
+        var b = new QuantityWeight(1000, WeightUnit.KILOGRAM);
         assertEquals(a, b);
     }
 
     @Test
     void testInequality_DifferentValues() {
-        var a = new QuantityVolume(1, VolumeUnit.LITER);
-        var b = new QuantityVolume(2, VolumeUnit.LITER);
+        var a = new QuantityWeight(1, WeightUnit.KILOGRAM);
+        var b = new QuantityWeight(2, WeightUnit.KILOGRAM);
         assertNotEquals(a, b);
     }
 }
